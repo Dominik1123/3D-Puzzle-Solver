@@ -1,0 +1,5 @@
+.idea
+.directory
+CMakeLists.txt
+create_lattice_code.txt
+create_pieces_code.txt
