@@ -157,6 +157,9 @@ class Config:
 	def __init__(self, links):
 		self.links = links
 
+	def create(self):
+		return [Config(self.links)]
+
 	def create_all_rotated_and_mirrored_flat(self):
 		"""
 		Create the configuration + all rotated configurations (pi/2, pi, 3pi/2) + all rotations (0, pi/2, pi, 3pi/2) of the mirrored (y-axis) configuration.
@@ -361,7 +364,8 @@ pieces.append(lightgreen)
 
 grey = Piece(
 	Config( [ down, [[ left ], [ down ], [ right ]] ] ).create_all_rotated_flat() +\
-	Config( [ dsw, [[ usw ], [ dsw ], [ dne ]] ] ).create_and_rotate_once_elevated(),
+	Config( [ dsw, [[ usw ], [ dsw ], [ dne ]] ] ).create() +\
+	Config( [ dse, [[ use ], [ dse ], [ dnw ]] ] ).create(),
 	'grey (L)'
 )
 pieces.append(grey)
