@@ -21,7 +21,7 @@
 
 """
 Elevated configurations start such that they are within the plane that is spanned by the vectors (1,1,1) (up-north-east) and (1,1,-1) (down-north-east).
-They are mirrored on the plane that is spanned by the vectors (1,1,1) (up-north-east) and (1,-1,1) (up-south-east).
+They are mirrored on the plane that is normal to (-1,1,-1) (up-south-west).
 
 Note: Puzzle will be solved from top to bottom!
 
@@ -82,17 +82,17 @@ def mirror_on_y_axis(links):
 
 def mirror_on_plane(links):
 	"""
-	Mirrors vector on the plane that is spanned by the vectors (1,1,1) (up-north-east) and (1,-1,1) (up-south-east):
+	Mirrors vector on the plane that is that is normal to (-1,1,-1) (up-south-west):
 	x -> -x, y -> -y, z -> -z   if vector in normal_vectors
 	x ->  x, y ->  y, z ->  z   else
 	"""
-	normal_vectors = [(1,-1,-1), (-1,1,1)]  # the normal vectors of the plane
+	normal_vectors = [(1,-1,1), (-1,1,-1)]  # the normal vectors of the plane
 	new_links = []
 	for elem in links:
 		if isinstance(elem, list):  # more than one branch
 			branch_list = []
 			for branch in elem:
-				branch_list.append(mirror_on_y_axis(branch))
+				branch_list.append(mirror_on_plane(branch))
 			new_links.append(branch_list)
 		else:
 			if elem in normal_vectors:
@@ -259,7 +259,7 @@ red = Piece(
 	Config( [ down, right, up, right ] ).create_all_rotated_and_mirrored_flat() +\
 	Config( [ [[ down, right, right ], [ right ]] ] ).create_all_rotated_and_mirrored_flat() +\
 	Config( [ right, down, left, left ] ).create_all_rotated_and_mirrored_flat() +\
-	Config( [ dne, dne, dsw, usw ] ).create_all_rotated_and_mirrored_elevated() +\
+	Config( [ dsw, dsw, dne, une ] ).create_all_rotated_and_mirrored_elevated() +\
 	Config( [ dsw, dne, une, dne ] ).create_all_rotated_elevated() +\
 	Config( [ [[ dsw, dne, dne ], [ dne ]] ] ).create_all_rotated_elevated() +\
 	Config( [ dsw, dne, une, une ] ).create_all_rotated_elevated(),
